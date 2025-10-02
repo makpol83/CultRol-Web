@@ -19,7 +19,7 @@ Copyright (C) 2025 Maksym Polyak
 
 ## Description
 
-Breve explicación de qué hace tu proyecto y para qué sirve.
+WIP
 
 ---
 
