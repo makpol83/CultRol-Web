@@ -2,7 +2,7 @@
 
 ## Description
 
-WIP
+This projects final idea is to provide the infrastructure to manage fictional character information related to the cultivation power system. It's primary use will be via a web page where the admins will be able to assign, modify and give permissions to the users, specifically on character management. 
 
 ---
 
