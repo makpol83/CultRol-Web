@@ -8,3 +8,10 @@ CREATE TABLE users (
     password text NOT NULL,
     access_level access_levels DEFAULT 'guest'
 );
+
+CREATE TABLE users_characters (
+    id_user REFERENCES users.id_user
+    id_c REFERENCES character.id_c
+
+    PRIMARY KEY(id_user, id_c)
+)

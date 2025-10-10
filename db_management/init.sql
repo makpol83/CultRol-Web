@@ -21,7 +21,7 @@ CREATE TYPE cultivation_range AS ENUM ('mortal', 'CQ1', 'CQ2', 'CQ3', 'CQ4', 'CQ
     'ANTARD2', 'ANTARD3', 'SEP1', 'SEP2', 'SEP3', 'BDTEMP', 'BDMED', 'BDTARD',
     'BDSEMI');
 
--- Enum: All talent level a stat cna have
+-- Enum: All talent level a stat can have
 CREATE TYPE talent_level AS ENUM ('X', 'E', 'C', 'B', 'A', 'S');
 
 -- Saves the stats an object gives when equipped
@@ -96,6 +96,7 @@ CREATE TABLE talent(
 CREATE TABLE stats(
     id_s SERIAL PRIMARY KEY,
     cult_range cultivation_range DEFAULT 'mortal',      -- Rango de cultivo de estas stats
+    talent_id integer REFERENCES talent(id_t),            -- ID de los talentos del personaje
 
     strength integer DEFAULT 0,
     speed integer DEFAULT 0,
@@ -118,29 +119,6 @@ CREATE TABLE stats(
     ((strength + speed + agility + resistance + vitality + perception + intelligence
     + concentration + spiritual_energy + qi_control + qi_quality)/11.0) STORED 
     -- Calidad del rango
-);
-
--- Saves the total level of the stats for a character (throughout the cultivation ranges)
-CREATE TABLE actual_stats(
-    id_as SERIAL PRIMARY KEY,
-    talent_id integer REFERENCES talent(id_t),            -- ID de los talentos del personaje
-
-    strength integer DEFAULT 0,
-    speed integer DEFAULT 0,
-    agility integer DEFAULT 0,
-    resistance integer DEFAULT 0,
-    vitality integer DEFAULT 0,
-    
-    perception integer DEFAULT 0,
-    intelligence integer DEFAULT 0,
-    concentration integer DEFAULT 0,
-
-    spiritual_energy integer DEFAULT 0,
-    qi_control integer DEFAULT 0,
-    qi_quality integer DEFAULT 0,
-
-    spiritual_sense integer DEFAULT 0,
-    qi_nucl integer DEFAULT 0
 );
 
 -- Saves all the information related to a character
@@ -168,7 +146,7 @@ CREATE TABLE character (
     appearance text,                                    -- apariencia
     past text,                                          -- pasado
     diseases text,                                      -- enfermedades
-    wounds text,                                        -- heridas
+    wounds text                                         -- heridas
 );
 
 -- Relational table where a character is linked to their stats through cultivation ranges

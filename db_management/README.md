@@ -18,16 +18,12 @@ is the cum_stats which refers to the total stats of a character on this moment.
 A don is related to a character via the chardon_relation table.
 
 The next important set of tables relates the stats of a character. A character
-has a predefined set of stats(strength, speed, agility...), the real value of
-the stats that the character will use in combat is the actual_stats table. But
+has a predefined set of stats(strength, speed, agility...). But
 according to the quality of the cultivation and the breakthroughs a character
 can develop different levels of power. That's why the stats table exists, this
 table represents for a cultivation range the stats that the character has 
 reached on that range. If a character for example is on QI3, he will have 3 
-stats register: 1 for QI1, another for QI2 and another for QI3 (Actual range),
-and actual_stats will represent the total sum relative to a set of functions
-to scale properly through ranges. All the formulas will be described on 
-scaling.txt.
+stats register: 1 for QI1, another for QI2 and another for QI3 (Actual range).
 
 Relative to the stats. When adding points to a stat, the talent takes action.
 Each character has a talent associated to each stat via the talent table.
@@ -66,3 +62,9 @@ The database will have three types of users:
 
 This permission levels will be implemented by the following tables on
 permission_init.sql
+
+Also in that file the connections between characters and users are defined
+
+## Database structure
+
+The database structure should follow the one described in table_schema.dat.

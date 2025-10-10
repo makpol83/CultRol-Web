@@ -1,16 +1,11 @@
 import typing
+import connection
 
 from psycopg import sql
-from connection import create_connection, close_connection
+import connection
 
-DB_NOTATION_INSERT_1 = "INSERT INTO "
-DB_NOTATION_INSERT_2 = " ("
-DB_NOTATION_INSERT_3 = ", "
-DB_NOTATION_INSERT_4 = ") VALUES ("
-DB_NOTATION_INSERT_5 = ");"
-
-# Recibe:
-# conn != None --> Database connection
+# Parameters:
+# conn --> Database connection
 # table_data = [table_name, column1_name, column2_name, column3_name, column4_name, ... , columnN_name]
 # register_data = [column1_data, column2_data, ... , columnN_data]
 # 
@@ -32,9 +27,6 @@ def db_insert_register_on_table(conn, table_data : list, register_data : list):
     conn.commit()
 
 # PK is a dict with the Primary Keys of the register to delete
-
-def db_clear_register_on_table_on_cascade(conn, table_name, PK):
-    from psycopg import sql
 
 def db_clear_register_on_table_on_cascade(conn, table_name, PK: dict):
     where_clause = sql.SQL(" AND ").join(
