@@ -14,9 +14,8 @@ The main table is called characters. characters has several columns with
 static data and four references, two of them are the clan_born and 
 clan_actual, both of them reference a clan.id register. Another important link
 is the cum_stats which refers to the total stats of a character on this moment.
-The last reference is the don, a don can exist or not for a character, in case
-the character has one it will reference it's corresponding register on the don
-table
+
+A don is related to a character via the chardon_relation table.
 
 The next important set of tables relates the stats of a character. A character
 has a predefined set of stats(strength, speed, agility...), the real value of

@@ -165,30 +165,34 @@ CREATE TABLE character (
     actual_sp integer DEFAULT 0,                        -- Skill Points
     actual_cp integer DEFAULT 0,                        -- puntos de campeón
 
-    cum_stats integer REFERENCES actual_stats(id_as),      -- Stats totales
-
     appearance text,                                    -- apariencia
     past text,                                          -- pasado
     diseases text,                                      -- enfermedades
     wounds text,                                        -- heridas
-
-    don_id integer REFERENCES don(id_d)                   -- Si no tiene don es NULL
 );
 
--- Relational table where a character is linked to their stats through  cultivation ragnes
+-- Relational table where a character is linked to their stats through cultivation ranges
 CREATE TABLE statchar_relation(
-    stats_id integer REFERENCES stats(id_s),              -- id de las stats del personaje
-    char_id integer REFERENCES character(id_c),           -- id del personaje
+    id_s integer REFERENCES stats(id_s),                -- id de las stats del personaje
+    id_c integer REFERENCES character(id_c),                -- id del personaje
 
-    PRIMARY KEY(stats_id, char_id)
+    PRIMARY KEY(id_s, id_c)
 );
+
+-- Relational table where a character is linked to their Don
+CREATE TABLE donchar_relation(
+    id_d integer REFERENCES don(id_d),
+    id_c integer REFERENCES character(id_c),
+
+    PRIMARY KEY(id_d, id_c)
+)
 
 -- Relational table that links an inventory with its item
 CREATE TABLE inventory (
-    char_id integer REFERENCES character(id_c) ON DELETE CASCADE, -- id del personaje al que pertenece el inventario
-    object_id integer REFERENCES object(id_o) ON DELETE CASCADE,  -- id del objeto que pertenece al personaje
+    id_c integer REFERENCES character(id_c) ON DELETE CASCADE, -- id del personaje al que pertenece el inventario
+    id_o integer REFERENCES object(id_o) ON DELETE CASCADE,  -- id del objeto que pertenece al personaje
     quantity integer DEFAULT 1,                         -- cantidad de ese objeto en el inventario
 
-    PRIMARY KEY(char_id, object_id)
+    PRIMARY KEY(id_c, id_o)
 );
 
