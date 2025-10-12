@@ -122,7 +122,7 @@ class TalentLevel(Enum):
 PRIMARY_KEYS = {
     'object_stats': ['id_os'],
     'object': ['id_o'],
-    'clan': ['id_c'],
+    'clan': ['id_cl'],
     'don': ['id_d'],
     'talent': ['id_t'],
     'stats': ['id_s'],
@@ -140,7 +140,7 @@ TABLES_COLUMNS = {
                      
     "object": ['id_o', 'slot_type', 'name', 'descr', 'added_stats'],
 
-    "clan": ['id_c', 'name'],
+    "clan": ['id_cl', 'name'],
 
     "don": ['id_d', 'name', 'EE_use', 'description'],
 
@@ -156,6 +156,28 @@ TABLES_COLUMNS = {
                   'clan_born', 'clan_actual', 'cult_realm', 'cult_range', 'prestige', 'level',
                   'actual_xp', 'required_xp', 'actual_sp', 'actual_cp', 'appearance', 
                   'past', 'diseases', 'wounds'],
+
+    "statchar_relation": ['id_s', 'id_c'],
+
+    "donchar_relation": ['id_d', 'id_c'],
+
+    "inventory": ['id_c', 'id_o', 'quantity']
+}
+
+PRIMARY_KEYS = {
+    "object_stats": ['id_os'],
+                     
+    "object": ['id_o'],
+
+    "clan": ['id_cl'],
+
+    "don": ['id_d'],
+
+    "talent": ['id_t'],
+
+    "stats": ['id_s'],
+
+    "character": ['id_c'],
 
     "statchar_relation": ['id_s', 'id_c'],
 

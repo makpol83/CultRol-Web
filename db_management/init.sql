@@ -57,7 +57,7 @@ CREATE TABLE object(
 
 -- Saves all the clans added in the world
 CREATE TABLE clan(
-    id_c SERIAL PRIMARY KEY,
+    id_cl SERIAL PRIMARY KEY,
     name text NOT NULL
 );
 
@@ -131,8 +131,8 @@ CREATE TABLE character (
     sex sex_type NOT NULL DEFAULT 'sin_sexo',           -- tipo de sexo 
     race race_type NOT NULL DEFAULT 'sin_raza',         -- tipo de raza
     martial_title text NOT NULL,                        -- titulo marcial 
-    clan_born integer REFERENCES clan(id_c),              -- clan en el que nació el personaje
-    clan_actual integer REFERENCES clan(id_c),            -- clan al que pertenece el personaje
+    clan_born integer REFERENCES clan(id_cl),              -- clan en el que nació el personaje
+    clan_actual integer REFERENCES clan(id_cl),            -- clan al que pertenece el personaje
 
     cult_realm cultivation_realm DEFAULT 'sin reino',   -- reino de cultivo
     cult_range cultivation_range DEFAULT 'mortal',      -- rango de cultivo
