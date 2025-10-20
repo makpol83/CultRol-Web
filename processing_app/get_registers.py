@@ -1,6 +1,7 @@
 import psycopg
 import connection
 import data_insertion_removal
+from psycopg import sql
 from enums_dicts import PRIMARY_KEYS
 
 # Returns all the registers from the table name received
@@ -12,7 +13,11 @@ def get_registers_from_table(conn, table_name: str):
     cur = conn.cursor()
     
     try:
-        query = f'SELECT * FROM "{table_name}";'
+
+        query = sql.SQL("SELECT * FROM {table};").format(
+            table = sql.Identifier(table_name)
+        )
+
         cur.execute(query)
         registros = cur.fetchall()  # Lista de diccionarios
         return registros
@@ -47,6 +52,23 @@ def get_registers_from_table_with_PK(conn, table_name: str, primary_keys: list):
             for i in range(length - 1):
                 query += primary_keys[i] + ", "
             query += primary_keys[length - 1] + ");"
+
+        columns = PRIMARY_KEYS[table_name]
+        length = len(primary_keys)
+        if len(columns) != length:
+            raise Exception
+
+        where_clause = sql.SQL(" AND ").join(
+            sql.SQL("{} = %s").format(sql.Identifier(col)) for col in columns
+        )
+
+        query = sql.SQL("SELECT * FROM {table} WHERE {where};").format(
+            table = sql.Identifier(table_name),
+            where = where_clause
+        )
+
+        cur.execute(query, tuple(primary_keys))
+
         cur.execute(query)
         register = cur.fetchall()  # List of diccionaries
         return register
