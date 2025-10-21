@@ -1,8 +1,8 @@
 import psycopg
-import connection
-import data_insertion_removal
+from db import connection
+from db import dataIR
 from psycopg import sql
-from enums_dicts import PRIMARY_KEYS
+from db.enums_dicts import PRIMARY_KEYS
 
 # Returns all the registers from the table name received
 # Returns a list of dictionaries where each list is a dictionary with column_name | value
@@ -35,24 +35,6 @@ def get_registers_from_table_with_PK(conn, table_name: str, primary_keys: list):
     cur = conn.cursor()
     
     try:
-        query = "SELECT * FROM "  + table_name +" WHERE "
-        lst = PRIMARY_KEYS[table_name]
-        length = len(primary_keys)
-        if len(lst) != length:
-            raise Exception
-        if length == 1:
-            query += lst[0] + " = " + primary_keys[0] + ";"
-        else:
-            query += "("
-            for i in range(length - 1):
-                query += lst[i] + ", "
-            query += lst[length - 1] + ") = "
-
-            query += "("
-            for i in range(length - 1):
-                query += primary_keys[i] + ", "
-            query += primary_keys[length - 1] + ");"
-
         columns = PRIMARY_KEYS[table_name]
         length = len(primary_keys)
         if len(columns) != length:
@@ -68,8 +50,6 @@ def get_registers_from_table_with_PK(conn, table_name: str, primary_keys: list):
         )
 
         cur.execute(query, tuple(primary_keys))
-
-        cur.execute(query)
         register = cur.fetchall()  # List of diccionaries
         return register
     except Exception as e:
@@ -79,13 +59,13 @@ def get_registers_from_table_with_PK(conn, table_name: str, primary_keys: list):
         cur.close()
 
 # debug functions
-conn = connection.create_connection()
-#data_insertion_removal.db_insert_register_on_table(conn, ['don', 'name', 'EE_use', 'description'], ['DON_TEST', '15', 'DESCR_TEST'])
-#data_insertion_removal.db_insert_register_on_table(conn, ['don', 'name', 'EE_use', 'description'], ['DON_TEST', '16', 'DESCR_TEST'])
+#conn = connection.create_connection()
+#dataIR.db_insert_register_on_table(conn, ['don', 'name', 'EE_use', 'description'], ['DON_TEST', '15', 'DESCR_TEST'])
+#dataIR.db_insert_register_on_table(conn, ['don', 'name', 'EE_use', 'description'], ['DON_TEST', '16', 'DESCR_TEST'])
 #lst_all = get_registers_from_table(conn, 'don')
 #print(f'{lst_all}')
 #lst = get_registers_from_table_with_PK(conn, 'don', ['13'])
 #print(f'{lst}')
-#data_insertion_removal.db_clear_register_on_table_on_cascade(conn, 'don', {"id_d": 5})
-#data_insertion_removal.db_clear_table_on_cascade(conn, 'don')
-connection.close_connection(conn)
+#dataIR.db_clear_register_on_table_on_cascade(conn, 'don', {"id_d": 5})
+#dataIR.db_clear_table_on_cascade(conn, 'don')
+#connection.close_connection(conn)

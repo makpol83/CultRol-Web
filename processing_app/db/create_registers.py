@@ -1,6 +1,6 @@
-import connection
-import data_insertion_removal
-import enums_dicts
+from db import connection
+from db import dataIR
+from db import enums_dicts
 import psycopg
 from psycopg import sql
 
@@ -12,5 +12,5 @@ def insert_into_table(table_name: str, data_lst: list):
     table_info = TABLES_COLUMNS[table_name]
     
     conn = connection.create_connection()
-    data_insertion_removal.db_insert_register_on_table(conn, table_info, data_lst)
+    dataIR.db_insert_register_on_table(conn, table_info, data_lst)
     connection.close_connection(conn)

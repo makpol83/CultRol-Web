@@ -1,8 +1,7 @@
 import typing
-import connection
+from db import connection
 
 from psycopg import sql
-import connection
 
 # Parameters:
 # conn --> Database connection
